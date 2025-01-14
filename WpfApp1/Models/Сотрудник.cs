@@ -28,8 +28,8 @@ namespace WpfApp1.Models
         public string Фамилия { get; set; }
         public string Имя { get; set; }
         public string Отчество { get; set; }
-        public Nullable<decimal> Зарплата { get; set; }
-        public string Дата_рождение { get; set; }
+        public Nullable<int> Зарплата { get; set; }
+        public Nullable<System.DateTime> Дата_рождение { get; set; }
         public string Контактные_данные { get; set; }
         public string паспортные_данные { get; set; }
     

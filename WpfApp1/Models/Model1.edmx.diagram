@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fc8e619f32ee41f5a930572dece4bab0" Name="Diagram1">
+      <Diagram DiagramId="b96db49e03f8407d90f95c06e6f995ec" Name="Diagram1">
         <EntityTypeShape EntityType="Model.dolzhnost" Width="1.5" PointX="3.75" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.pol" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.role" Width="1.5" PointX="1.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.rol" Width="1.5" PointX="1.5" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.tip_zhilya" Width="1.5" PointX="6.75" PointY="11.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Авторизация" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />

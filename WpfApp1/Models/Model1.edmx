@@ -148,8 +148,8 @@
           <Property Name="Фамилия" Type="varchar" MaxLength="20" />
           <Property Name="Имя" Type="varchar" MaxLength="20" />
           <Property Name="Отчество" Type="varchar" MaxLength="20" />
-          <Property Name="Зарплата" Type="money" />
-          <Property Name="Дата рождение" Type="varchar" MaxLength="20" />
+          <Property Name="Зарплата" Type="int" />
+          <Property Name="Дата рождение" Type="datetime" />
           <Property Name="Контактные данные" Type="varchar" MaxLength="30" />
           <Property Name="паспортные данные" Type="varchar" MaxLength="50" />
         </EntityType>
@@ -456,7 +456,7 @@
           <NavigationProperty Name="Клиент" Relationship="Self.FK_Клиент_pol" FromRole="pol" ToRole="Клиент" />
           <NavigationProperty Name="Сотрудник" Relationship="Self.FK_Сотрудник_pol1" FromRole="pol" ToRole="Сотрудник" />
         </EntityType>
-        <EntityType Name="role">
+        <EntityType Name="rol">
           <Key>
             <PropertyRef Name="id_role" />
           </Key>
@@ -607,8 +607,8 @@
           <Property Name="Фамилия" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Имя" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Отчество" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Зарплата" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Дата_рождение" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Зарплата" Type="Int32" />
+          <Property Name="Дата_рождение" Type="DateTime" Precision="3" />
           <Property Name="Контактные_данные" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="паспортные_данные" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="dolzhnost" Relationship="Self.FK_Сотрудник_dolzhnost" FromRole="Сотрудник" ToRole="dolzhnost" />
@@ -664,7 +664,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Авторизация_role">
-          <End Role="role" Type="Self.role" Multiplicity="0..1" />
+          <End Role="role" Type="Model.rol" Multiplicity="0..1" />
           <End Role="Авторизация" Type="Self.Авторизация" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="role">
@@ -822,7 +822,7 @@
         <EntityContainer Name="Пр4_Агентсво_недвижимостиEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="dolzhnost" EntityType="Self.dolzhnost" />
           <EntitySet Name="pol" EntityType="Self.pol" />
-          <EntitySet Name="role" EntityType="Self.role" />
+          <EntitySet Name="role" EntityType="Model.rol" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="tip_zhilya" EntityType="Self.tip_zhilya" />
           <EntitySet Name="Авторизация" EntityType="Self.Авторизация" />
@@ -923,7 +923,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="role">
-            <EntityTypeMapping TypeName="Model.role">
+            <EntityTypeMapping TypeName="Model.rol">
               <MappingFragment StoreEntitySet="role">
                 <ScalarProperty Name="id_role" ColumnName="id role" />
                 <ScalarProperty Name="role1" ColumnName="role" />
