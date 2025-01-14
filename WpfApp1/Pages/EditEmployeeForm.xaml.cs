@@ -10,7 +10,7 @@ namespace WpfApp1.Pages
     {
         private Пр4_Агентсво_недвижимостиEntities db;
         private int _employeeId;
-        private bool _isNewEmployee; // Флаг для определения режима (добавление или редактирование)
+        private bool _isNewEmployee; // Флаг для определения режима (добавление или редактирование)sdvls,d
 
         public EditEmployeeForm()
         {
