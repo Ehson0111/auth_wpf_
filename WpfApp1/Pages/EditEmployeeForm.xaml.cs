@@ -128,7 +128,7 @@ namespace WpfApp1.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            // Логика для кнопки "Добавить" (если нужно)
+            // Логика для кнопки "Добавить" (если нужно)djf 
         }
     }
 }
