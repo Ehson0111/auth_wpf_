@@ -11,7 +11,8 @@ namespace WpfApp1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Сотрудник
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,20 +21,39 @@ namespace WpfApp1.Models
             this.Заявка = new HashSet<Заявка>();
             this.Отчетности = new HashSet<Отчетности>();
         }
-    
+
         public int Id_Сотрудник { get; set; }
         public Nullable<int> id_Авторизация { get; set; }
+
+        [Required(ErrorMessage = "Пол должнeн быть указан.")]
         public Nullable<int> id_pol { get; set; }
+
+        [Required(ErrorMessage = "Поле должность должен быть указан.")]
         public Nullable<int> id_dolzhnost { get; set; }
+        [Required(ErrorMessage = "Фамили должно быть заполнено. ")]
+        [StringLength(50, ErrorMessage = "Фамилия не должно перевышать 50 символов")]
         public string Фамилия { get; set; }
+
+        [Required(ErrorMessage = "Имя обязательно для заполнения.")]
+        [StringLength(50, ErrorMessage = "Имя не должно превышать 50 символов.")]
         public string Имя { get; set; }
+
+        [StringLength(50,ErrorMessage ="Отчество не должно перевишать 50 символов.")]
         public string Отчество { get; set; }
+
+        [Required(ErrorMessage ="Поле зарплата должно быть заполнено.")]
+        [Range(0, 1000000,ErrorMessage = "Зарплата должна быть в диапазоне от 0 до 1 000 000.") ]
         public Nullable<int> Зарплата { get; set; }
+
+        [Required(ErrorMessage = "Поле дата рождение должно быть заполнено.")]
         public Nullable<System.DateTime> Дата_рождение { get; set; }
+
+        [Required(ErrorMessage ="Поле контакты должно быть заполнено.")]
+        [StringLength(20,ErrorMessage ="Поле не должно перевишать 20 сиволов.")]
         public string Контактные_данные { get; set; }
         public string паспортные_данные { get; set; }
-    
-        public virtual dolzhnost dolzhnost { get; set; }
+
+         public virtual dolzhnost dolzhnost { get; set; }
         public virtual pol pol { get; set; }
         public virtual Авторизация Авторизация { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

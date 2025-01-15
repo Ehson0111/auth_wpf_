@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using WpfApp1.Models;
+using WpfApp1.Validators;
 
 namespace WpfApp1.Pages
 {
@@ -10,7 +13,7 @@ namespace WpfApp1.Pages
     {
         private Пр4_Агентсво_недвижимостиEntities db;
         private int _employeeId;
-        private bool _isNewEmployee; // Флаг для определения режима (добавление или редактирование)sdvls,dxv
+        private bool _isNewEmployee; //  для определения режима (добавление или редактирование)sdvls,dxv
 
         public EditEmployeeForm()
         {
@@ -18,10 +21,9 @@ namespace WpfApp1.Pages
             _isNewEmployee = true; // Режим добавления
             db = new Пр4_Агентсво_недвижимостиEntities();
 
-            // Инициализация нового сотрудника
             DataContext = new Сотрудник
             {
-                Авторизация = new Авторизация() // Создаем новую запись авторизации
+                Авторизация = new Авторизация()
             };
 
             // Загрузка данных для ComboBox
@@ -43,7 +45,6 @@ namespace WpfApp1.Pages
                 return;
             }
 
-            // Установка DataContext
             DataContext = employee;
 
             // Загрузка данных для ComboBox
@@ -51,26 +52,111 @@ namespace WpfApp1.Pages
             cbpol.ItemsSource = db.pol.ToList();
         }
 
+        //private void BtnSave_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (_isNewEmployee)
+        //        {
+        //            // Добавление нового сотрудника
+        //            var newEmployee = DataContext as Сотрудник;
+        //            if (newEmployee == null)
+        //            {
+        //                MessageBox.Show("Ошибка при создании нового сотрудника!");
+        //                return;
+        //            }
+
+        //            // Хэширование пароля
+        //            HashPassword hash = new HashPassword();
+        //            newEmployee.Авторизация.password = hash.HashPassword1(pbPassword.Text);
+
+        //            // Добавление в базу данных
+        //            db.Сотрудник.Add(newEmployee);
+        //            db.SaveChanges();
+
+        //            MessageBox.Show("Новый сотрудник успешно добавлен!");
+        //        }
+        //        else
+        //        {
+        //            // Редактирование существующего сотрудника
+        //            var employee = db.Сотрудник.Find(_employeeId);
+        //            if (employee == null)
+        //            {
+        //                MessageBox.Show("Сотрудник не найден!");
+        //                return;
+        //            }
+
+        //            // Обновление данных сотрудника
+        //            employee.Имя = txtFirstName.Text;
+        //            employee.Фамилия = txtLastName.Text;
+        //            employee.Отчество = txtMiddleName.Text;
+        //            employee.Контактные_данные = txtContactData.Text;
+        //            employee.Зарплата = Convert.ToInt32(txtSalary.Text);
+        //            employee.Дата_рождение = dpBirthday.SelectedDate.Value;
+        //            employee.id_dolzhnost = (int)cbDolzhnost.SelectedValue;
+        //            employee.id_pol = (int)cbpol.SelectedValue;
+
+        //            // Обновление пароля
+        //            HashPassword hash = new HashPassword();
+        //            employee.Авторизация.password = hash.HashPassword1(pbPassword.Text);
+
+        //            // Сохранение изменений
+        //            db.SaveChanges();
+        //            MessageBox.Show("Изменения сохранены!");
+        //        }
+
+        //        // Переход на предыдущую страницу
+        //        NavigationService.GoBack();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Ошибка: {ex.Message}");
+        //    }
+        //}
+
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (_isNewEmployee)
+
+
+                var employee = DataContext as Сотрудник;
+                if (employee == null)
                 {
-                    // Добавление нового сотрудника
-                    var newEmployee = DataContext as Сотрудник;
-                    if (newEmployee == null)
+                    MessageBox.Show("Ошибка при создании или редактировании сотрудника!");
+                    return;
+                }
+
+                // Валидация данных сотрудника
+                var validator = new EmployeeValidator();
+                var validationResults = validator.Validate(employee);
+                //string[] d = new string[100];
+
+                string error = "Обязательно:";
+                if (validationResults.Any())
+                {
+                    foreach (var result in validationResults)
                     {
-                        MessageBox.Show("Ошибка при создании нового сотрудника!");
-                        return;
+                        //strings.Append(result.ToString());
+                        //MessageBox.Show(result.ErrorMessage);
+                        error = error + "\n"+ result.ToString();
+                    }
+                    if (error!= "Обязательно:")
+                    {
+                        MessageBox.Show(error);
                     }
 
+                    return;
+                }
+
+                if (_isNewEmployee)
+                {
                     // Хэширование пароля
                     HashPassword hash = new HashPassword();
-                    newEmployee.Авторизация.password = hash.HashPassword1(pbPassword.Text);
+                    employee.Авторизация.password = hash.HashPassword1(pbPassword.Text);
 
-                    // Добавление в базу данных
-                    db.Сотрудник.Add(newEmployee);
+                    // Добавление нового сотрудника
+                    db.Сотрудник.Add(employee);
                     db.SaveChanges();
 
                     MessageBox.Show("Новый сотрудник успешно добавлен!");
@@ -78,26 +164,26 @@ namespace WpfApp1.Pages
                 else
                 {
                     // Редактирование существующего сотрудника
-                    var employee = db.Сотрудник.Find(_employeeId);
-                    if (employee == null)
+                    var existingEmployee = db.Сотрудник.Find(_employeeId);
+                    if (existingEmployee == null)
                     {
                         MessageBox.Show("Сотрудник не найден!");
                         return;
                     }
 
                     // Обновление данных сотрудника
-                    employee.Имя = txtFirstName.Text;
-                    employee.Фамилия = txtLastName.Text;
-                    employee.Отчество = txtMiddleName.Text;
-                    employee.Контактные_данные = txtContactData.Text;
-                    employee.Зарплата = Convert.ToInt32(txtSalary.Text);
-                    employee.Дата_рождение = dpBirthday.SelectedDate.Value;
-                    employee.id_dolzhnost = (int)cbDolzhnost.SelectedValue;
-                    employee.id_pol = (int)cbpol.SelectedValue;
+                    existingEmployee.Имя = txtFirstName.Text;
+                    existingEmployee.Фамилия = txtLastName.Text;
+                    existingEmployee.Отчество = txtMiddleName.Text;
+                    existingEmployee.Контактные_данные = txtContactData.Text;
+                    existingEmployee.Зарплата = Convert.ToInt32(txtSalary.Text);
+                    existingEmployee.Дата_рождение = dpBirthday.SelectedDate.Value;
+                    existingEmployee.id_dolzhnost = (int)cbDolzhnost.SelectedValue;
+                    existingEmployee.id_pol = (int)cbpol.SelectedValue;
 
                     // Обновление пароля
                     HashPassword hash = new HashPassword();
-                    employee.Авторизация.password = hash.HashPassword1(pbPassword.Text);
+                    existingEmployee.Авторизация.password = hash.HashPassword1(pbPassword.Text);
 
                     // Сохранение изменений
                     db.SaveChanges();
@@ -130,5 +216,6 @@ namespace WpfApp1.Pages
         {
             // Логика для кнопки "Добавить" (если нужно)djf 
         }
+
     }
 }

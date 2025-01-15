@@ -11,7 +11,8 @@ namespace WpfApp1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Клиент
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,11 +23,26 @@ namespace WpfApp1.Models
         }
     
         public int Id_Клиент { get; set; }
+
+        [Required(ErrorMessage = "Фамилия обязательна для заполнения.")]
+        [StringLength(50, ErrorMessage = "Фамилия не должна превышать 50 символов.")]
         public string Фамилия { get; set; }
+
+        [Required(ErrorMessage = "Имя обязательно для заполнения.")]
+        [StringLength(50, ErrorMessage = "Имя не должно превышать 50 символов.")]
         public string Имя { get; set; }
+
         public string Отчество { get; set; }
+
+        [Required(ErrorMessage = "Дата рождения обязательна для заполнения.")]
         public string Дата_рождение { get; set; }
+
+        [Required(ErrorMessage = "Контактные данные обязательны для заполнения.")]
+        [StringLength(20, ErrorMessage = "Контактные данные не должны превышать 20 символов.")]
         public string Контактные_данные { get; set; }
+
+        [Required(ErrorMessage = "Паспортные данные обязательны для заполнения.")]
+        [StringLength(20, ErrorMessage = "Паспортные данные не должны превышать 20 символов.")]
         public string Паспортные_данные { get; set; }
         public Nullable<int> id_Авторизация { get; set; }
         public Nullable<int> id_pol { get; set; }

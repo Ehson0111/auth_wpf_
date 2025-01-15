@@ -5,28 +5,19 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfApp1.Services
+namespace WpfApp1
 {
-    internal class Hash
+    internal class HashPassword
     {
-         
-            /// <summary>
-            /// Хэширует заданный пароль с использованием алгоритма SHA256.
-            /// </summary>
-            /// <param name="password">Пароль, который необходимо хэшировать.</param>
-            /// <returns>Строковое представление хэша пароля в шестнадцатеричном формате.</returns>
-            public static string HashPassword(string password)
+        public string HashPassword1(string password)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
             {
-             
-                using (SHA256 shs256Hash = SHA256.Create())
-                {
-                    byte[] sourceBytePassword = Encoding.UTF8.GetBytes(password);//password принимается методом в виде аргумента
-                    byte[] hash = shs256Hash.ComputeHash(sourceBytePassword);
-                    return BitConverter.ToString(hash).Replace("-", String.Empty); //Возвращаем методом строковое значение
-                }
+                byte[] SourceSwitch = Encoding.UTF8.GetBytes(password);
+                byte[] hashSourceBytePassw = sha256Hash.ComputeHash(SourceSwitch);
+                string hashPassw = BitConverter.ToString(hashSourceBytePassw).Replace("-", string.Empty);
+                return hashPassw;
             }
-        
-
-
+        }
     }
 }
