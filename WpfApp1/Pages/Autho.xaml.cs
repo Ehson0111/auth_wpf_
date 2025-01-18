@@ -158,18 +158,6 @@ namespace WpfApp1.Pages
         {
             MessageBox.Show("Вы вошли как гость: ");
             NavigationService.Navigate(new Client(null, null));
-        }
-
-        private bool IsWorkingHours()
-        {
-            DateTime now = DateTime.Now;
-
-
-
-            DateTime startTime = new DateTime(now.Year, now.Month, now.Day, 10, 0, 0);
-            DateTime endTime = new DateTime(now.Year, now.Month, now.Day, 19, 0, 0);
-
-            return now >= startTime && now <= endTime;
-        }
+        }   
     }
 }
