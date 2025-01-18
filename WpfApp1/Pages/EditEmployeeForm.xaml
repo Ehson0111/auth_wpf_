@@ -97,7 +97,16 @@
             <Button x:Name="CLEAR" Click="CLEAR_Click" Content="Очистить" Margin="5" Background="{DynamicResource {x:Static SystemColors.MenuBarBrushKey}}" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"/>
         </StackPanel>
 
+        <Image x:Name="imgEmployeePhoto" Grid.Row="0" Grid.Column="2" 
+           Width="100" Height="100" Margin="0,5,0,0"
+           Source="{Binding PhotoPath}" />
+
+        <!-- Кнопка для загрузки фотографии -->
+        <Button Grid.Column="2" Content="Добавить фото" 
+            HorizontalAlignment="Left" Margin="10,3,0,0" 
+            Grid.Row="3" VerticalAlignment="Top" 
+            Click="BtnAddPhoto_Click" />
         <!-- Кнопка добавления фото -->
-        <Button Grid.Column="2" Content="Добавить фото" HorizontalAlignment="Left" Margin="10,3,0,0" Grid.Row="3" VerticalAlignment="Top" Background="#FFB0B0BF" BorderBrush="#FF3ADFFF" Height="30"/>
+        <!--<Button Grid.Column="2" Content="Добавить фото" HorizontalAlignment="Left" Margin="10,3,0,0" Grid.Row="3" VerticalAlignment="Top" Background="#FFB0B0BF" BorderBrush="#FF3ADFFF" Height="30"/>-->
     </Grid>
 </Page>

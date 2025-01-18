@@ -52,8 +52,11 @@ namespace WpfApp1.Models
         [StringLength(20,ErrorMessage ="Поле не должно перевишать 20 сиволов.")]
         public string Контактные_данные { get; set; }
         public string паспортные_данные { get; set; }
+      
 
-         public virtual dolzhnost dolzhnost { get; set; }
+            public string PhotoPath { get; set; } // Путь к фотографии
+ 
+        public virtual dolzhnost dolzhnost { get; set; }
         public virtual pol pol { get; set; }
         public virtual Авторизация Авторизация { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using WpfApp1.Models;
 using WpfApp1.Validators;
 
@@ -113,12 +114,32 @@ namespace WpfApp1.Pages
         //        MessageBox.Show($"Ошибка: {ex.Message}");
         //    }
         //}
+        private void BtnAddPhoto_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png";
 
+            if (openFileDialog.ShowDialog() == true)
+            {
+                // Получаем путь к выбранному файлу
+                string photoPath = openFileDialog.FileName;
+
+                // Загружаем изображение в Image
+                imgEmployeePhoto.Source = new BitmapImage(new Uri(photoPath));
+
+                // Сохраняем путь к фотографии в объекте сотрудника
+                var employee = DataContext as Сотрудник;
+                if (employee != null)
+                {
+                    employee.PhotoPath = photoPath;
+                }
+            }
+        }
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-
+                //Добавить фото
 
                 var employee = DataContext as Сотрудник;
                 if (employee == null)
