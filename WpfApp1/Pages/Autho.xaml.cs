@@ -93,6 +93,8 @@ namespace WpfApp1.Pages
                     if (n >= 3)
                     {
                         locked();
+                        forgotPassword.Visibility = Visibility.Visible;
+
                     }
                     else
                     {
@@ -158,6 +160,11 @@ namespace WpfApp1.Pages
         {
             MessageBox.Show("Вы вошли как гость: ");
             NavigationService.Navigate(new Client(null, null));
-        }   
+        }
+
+        private void forgotPassword_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
